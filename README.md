@@ -1,3 +1,7 @@
 # Ansible
 
-Projeto para o estudo e conhecimento referente a ferramenta de automação de T.I chamada Ansible.
+## Português
+Projeto de estudo referente à ferramenta de automação de TI denominada Ansible.
+
+## English
+Study project regarding the IT automation tool called Ansible.
