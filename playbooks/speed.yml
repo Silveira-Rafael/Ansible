@@ -1,0 +1,8 @@
+- name: Install speedtest
+  hosts: allHosts
+  become: yes
+
+  tasks:
+    - name: Installing speedtest on remote server
+      apt:
+        name: speedtest-cli
