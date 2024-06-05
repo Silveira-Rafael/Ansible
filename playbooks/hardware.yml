@@ -1,20 +1,22 @@
 - name: Server Hardware
-  hosts: allHosts 
-  gather_facts: yes #Collecting information about the hosts before performing any task
-
+  hosts: allHosts
+  gather_facts: true # Collecting information about the hosts before performing any task
   tasks:
-    - name: Capture processor cores
-      shell: "lscpu | grep -o 'CPU(s): *[^ ]*'" #Regex to capture number of cores
+
+    - name: Capture Processor Cores
+      ansible.builtin.shell: "set -o pipefail && lscpu | grep -o 'CPU(s): *[^ ]*'" # Regex to capture number of cores
       register: processor_cores
+      changed_when: false # The task should not be considered changed
 
     - name: Capture disk information
-      shell: "lsblk -o NAME,SIZE,TYPE | grep disk" #Regex to capture information from disk
+      ansible.builtin.shell: "set -o pipefail && lsblk -o NAME,SIZE,TYPE | grep disk" # Regex to capture information from disk
       register: disk_information
+      changed_when: false # The task should not be considered changed
 
     - name: Show hardware
-      debug:
+      ansible.builtin.debug:
         msg:
-          - "Modelo do processador: {{ ansible_processor }}" #Show processor model
-          - "{{ processor_cores.stdout }}" #Show Number of cores
-          - "Memória RAM em GB: {{ '%.2f' | format(ansible_memtotal_mb / 1024) }}" #Show amount of RAM memory
-          - "{{ disk_information.stdout_lines }}" #Show disk information
+          - "Modelo do processador: {{ ansible_processor }}" # Show processor model
+          - "{{ processor_cores.stdout }}" # Show Number of cores
+          - "Memória RAM em GB: {{ '%.2f' | format(ansible_memtotal_mb / 1024) }}" # Show amount of RAM memory
+          - "{{ disk_information.stdout_lines }}" # Show disk information
