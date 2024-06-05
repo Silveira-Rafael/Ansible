@@ -1,8 +1,8 @@
 - name: Install speedtest
   hosts: allHosts
-  become: yes
+  become: true # Run with root privileges
 
   tasks:
     - name: Installing speedtest on remote server
-      apt:
+      ansible.builtin.apt:
         name: speedtest-cli
