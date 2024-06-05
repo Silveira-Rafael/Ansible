@@ -1,7 +1,8 @@
 - name: Install nginx service
   hosts: allHosts
- 
+  become: true # Run with root privileges
+
   tasks:
-    - name: Installing nginx
-      apt:
-        name: nginx-full #Service name
+    - name: Intalling nginx
+      ansible.builtin.apt:
+        name: nginx-full
