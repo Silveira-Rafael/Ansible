@@ -1,12 +1,12 @@
 - name: Copy of files
   hosts: allHosts
-  become: yes #Run with root privileges
-  
+  become: true # Run with root privileges
+
   tasks:
     - name: Copying index file to www directory on remote servers
       ansible.builtin.copy:
-        src: /root/index.html #File source
-        dest: /var/www/html/index.html #File destination
+        src: /root/index.html # Source file
+        dest: /var/www/html/index.html # Destination file
         owner: root
         group: root
-        mode: '777'
+        mode: '770'
