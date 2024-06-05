@@ -1,10 +1,10 @@
 - name: Insert line into files
   hosts: allHosts
-  become: yes #Run with root privileges
+  become: true # Run with root privileges
 
   tasks:
-    - name: Insert Hiiiii below Hello World
+    - name: Insert Hiiiiiii below Hello World
       ansible.builtin.lineinfile:
-        path: /var/www/index.html #File to be edited
-        insertafter: '<h1>Hello, World!</h1>' #Insert below this line
-        line: '    <p>Hiiiii</p>' #Word for insertion
+        path: /var/www/index.html # File to be edited
+        insertafter: '<h1>Hello, World!</h1>' # Insert below this line
+        line: '    <p>Hiiiiiii</p>' # Word for insertion
