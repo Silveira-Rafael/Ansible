@@ -1,0 +1,32 @@
+- name: Send e-mail
+  ansible.builtin.mail: #Mail module to send e-mail
+    host: host_SMTP #SMTP server
+    port: 465
+    username: example@gmail.com #User SMTP
+    password: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" #User password
+    to: "example@gmail.com"
+    subject: "Novo cartão criado no Trello via Ansible"
+    body: |
+      Olá,
+
+      Um novo cartão foi criado no Trello via Ansible!
+
+- name: Create card in Trello
+  uri: #Uri module to send HTTP request to Trello API
+    url: "https://api.trello.com/1/cards" #Trello API URL to create a new card
+    method: POST #HTTP method used for the request (POST)
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" #Trello API KEY
+      token: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" #Trello token
+      idList: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" #ID list
+      name: "x - xxxxxxxxx" #Card name
+      desc: "Esse cartão foi inserido via Ansible!" #Card description
+      idLabels: ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"] #ID label
+  register: info_card
+
+- name: Show info
+  ansible.builtin.debug:
+    msg: "Cliente ID: {{ info_card.json.name }} | Razão social: {{ info_card.json.desc }}"
